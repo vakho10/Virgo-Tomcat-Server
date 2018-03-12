@@ -4,8 +4,6 @@ ENV VIRGO_VERSION 3.7.2.RELEASE
 ENV VIRGO virgo-tomcat-server-$VIRGO_VERSION 
 ENV VIRGO_HOME /opt/virgo 
 
-RUN apk add --update curl libarchive-tools bash
-
 RUN \
 	curl -o virgo.zip -L http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/$VIRGO_VERSION/$VIRGO.zip\&r=1 && \
 	mkdir -p /opt && \
