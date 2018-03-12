@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-alpine 
+FROM openjdk:8-jre
 MAINTAINER Vakho 
 ENV VIRGO_VERSION 3.7.2.RELEASE
 ENV VIRGO virgo-tomcat-server-$VIRGO_VERSION 
