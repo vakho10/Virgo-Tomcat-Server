@@ -1,23 +1,23 @@
-FROM openjdk:8-jre-alpine
-MAINTAINER Gabor Renner <grenner@intrend.hu>
+FROM openjdk:7-jre-alpine 
 
-ENV VIRGO_VERSION 3.7.2.RELEASE
-ENV VIRGO virgo-tomcat-server-$VIRGO_VERSION
-ENV VIRGO_HOME /opt/virgo
+ENV VIRGO_VERSION 3.7.2.RELEASE 
+ENV VIRGO virgo-tomcat-server-$VIRGO_VERSION 
+ENV VIRGO_HOME /opt/virgo 
 
-RUN apk add --update curl libarchive-tools bash && mkdir -p /opt/$VIRGO
-COPY virgo-tomcat-server-3.7.2.RELEASE /opt/$VIRGO
-
-RUN  ls /opt/ && ln -s /opt/$VIRGO $VIRGO_HOME && \
-	adduser -D -s /bin/bash -h $VIRGO_HOME virgo && \ 
+RUN apk add --update curl libarchive-tools bash
+RUN \
+	curl -o virgo.zip -L http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/$VIRGO_VERSION/$VIRGO.zip\&r=1 && \
+	mkdir -p /opt && \
+	bsdtar -C /opt/ -xzf virgo.zip && \
+	rm virgo.zip && \
+	ln -s /opt/$VIRGO $VIRGO_HOME && \
+	adduser -D -s /bin/bash -h $VIRGO_HOME virgo && \
 	chmod u+x /opt/$VIRGO/bin/*.sh && \
 	chown virgo:virgo /opt/$VIRGO -R
-
-USER virgo
-
+USER virgo 
 WORKDIR $VIRGO_HOME
 
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' /opt/virgo/configuration/tomcat-server.xml
-EXPOSE 8080
 
+EXPOSE 8080 
 CMD ["bin/startup.sh"]
