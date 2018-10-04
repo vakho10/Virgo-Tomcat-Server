@@ -10,11 +10,12 @@ RUN \
 	mkdir -p /opt && \
 	bsdtar -C /opt/ -xzf virgo.zip && \
 	rm virgo.zip && \
-	ln -s /opt/$VIRGO $VIRGO_HOME && \
-	adduser -D -s /bin/bash -h $VIRGO_HOME virgo && \
-	chmod u+x /opt/$VIRGO/bin/*.sh && \
-	chown virgo:virgo /opt/$VIRGO -R
-USER virgo 
+	ln -s /opt/$VIRGO $VIRGO_HOME 
+	#&& \
+	#adduser -D -s /bin/bash -h $VIRGO_HOME virgo && \
+	#chmod u+x /opt/$VIRGO/bin/*.sh && \
+	#chown virgo:virgo /opt/$VIRGO -R
+#USER virgo 
 WORKDIR $VIRGO_HOME
 
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' /opt/virgo/configuration/tomcat-server.xml
