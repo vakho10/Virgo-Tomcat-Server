@@ -18,7 +18,7 @@ RUN \
 
 WORKDIR $VIRGO_HOME
 
-RUN sed -i 's/127.0.0.1/0.0.0.0/g' /opt/virgo/configuration/tomcat-server.xml
+RUN sed -i 's/127.0.0.1/0.0.0.0/g' $VIRGO_HOME/configuration/tomcat-server.xml
 
 EXPOSE 8080 
 CMD ["bin/startup.sh"]
