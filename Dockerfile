@@ -2,7 +2,7 @@ FROM openjdk:8-jre-alpine
 
 ENV VIRGO_VERSION 3.7.2.RELEASE 
 ENV VIRGO virgo-tomcat-server-$VIRGO_VERSION 
-ENV VIRGO_HOME /opt/virgo 
+ENV VIRGO_HOME /virgo 
 
 RUN apk add --update curl libarchive-tools bash
 RUN \
@@ -10,11 +10,11 @@ RUN \
 	mkdir -p /opt && \
 	bsdtar -C /opt/ -xzf virgo.zip && \
 	rm virgo.zip && \
-	ln -s /opt/$VIRGO $VIRGO_HOME && \
-	adduser -D -s /bin/bash -h $VIRGO_HOME virgo && \
-	chmod u+x /opt/$VIRGO/bin/*.sh && \
-	chown virgo:virgo /opt/$VIRGO -R
-USER virgo 
+	mv /opt/$VIRGO/* $VIRGO_HOME && \
+	addgroup -S virgo && \
+    	adduser -S -s /bin/sh -G virgo -h $VIRGO_HOME virgo && \
+    	chmod u+x $VIRGO_HOME/bin/*.sh
+
 WORKDIR $VIRGO_HOME
 
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' /opt/virgo/configuration/tomcat-server.xml
