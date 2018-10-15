@@ -10,7 +10,7 @@ RUN \
 	curl -o virgo.zip -L http://www.eclipse.org/downloads/download.php?file=/virgo/release/VP/$VIRGO_VERSION/$VIRGO.zip\&r=1 && \	
 	unzip -qq virgo.zip -d /tmp && \
 	rm virgo.zip && \
-	ls -l && \
+	ls -l /tmp && \
 	mv /tmp/$VIRGO/* $VIRGO_HOME && \
 	addgroup -S virgo && \
     	adduser -S -s /bin/sh -G virgo -h $VIRGO_HOME virgo && \
