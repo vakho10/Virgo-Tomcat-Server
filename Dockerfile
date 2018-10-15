@@ -17,8 +17,6 @@ RUN \
 USER virgo 
 WORKDIR $VIRGO_HOME
 
-VOLUME ["/opt/virgo"]
-
 RUN sed -i 's/127.0.0.1/0.0.0.0/g' /opt/virgo/configuration/tomcat-server.xml
 
 EXPOSE 8080 
