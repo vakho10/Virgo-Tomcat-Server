@@ -4,6 +4,7 @@ ENV VIRGO_VERSION 3.7.2.RELEASE
 ENV VIRGO virgo-tomcat-server-$VIRGO_VERSION 
 ENV VIRGO_HOME /virgo 
 
+RUN mkdir -p $VIRGO_HOME
 RUN apk add --update curl unzip bash
 
 RUN \
